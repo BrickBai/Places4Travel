@@ -21,20 +21,21 @@ class PhotosViewController: UICollectionViewController {
 	let photocellindentifer = "photo"
 	
 	var imageArray:[UIImage] = []
-	
-	required init?(coder aDecoder: NSCoder) {
-		PhotosView.delegate = self
-	}
+	var addressText = String()
+	var placeName = String()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
 		//get location service permision
 		if CLLocationManager.authorizationStatus() == .notDetermined {
-			self.manager.requestWhenInUseAuthorization()
+			self.manager.requestAlwaysAuthorization()
 		}
 		
-		//get currentPlaceID
+		self.getCurrentPlacePhotos()
+	}
+	
+	func getCurrentPlacePhotos() {
 		GMSPlacesClient.shared().currentPlace(callback: { (placeLikelihoodList, error) -> Void in
 			if let error = error {
 				print("Pick Place error: \(error.localizedDescription)")
@@ -43,16 +44,22 @@ class PhotosViewController: UICollectionViewController {
 			
 			if let placeLikelihoodList = placeLikelihoodList {
 				if let likelihood = placeLikelihoodList.likelihoods.first{
-					self.currentPlaceID = likelihood.place.placeID
+					let place = likelihood.place
+					print("Current Place name \(place.name) at likelihood \(likelihood.likelihood)")
+					print("Current Place address \(place.formattedAddress)")
+					print("Current Place attributions \(place.attributions)")
+					print("Current PlaceID \(place.placeID)")
+					//get photoMetadata using currentPlaceID
+					self.loadPhotosForPlace(placeID: likelihood.place.placeID)
+					self.placeName = place.name
+					if let address = place.formattedAddress {
+						self.addressText = address
+					} else {
+						self.addressText = "No available address"
+					}
 				}
 			}
 		})
-		
-		//get photoMetadata using currentPlaceID
-		if self.currentPlaceID != nil {
-			loadPhotosForPlace(placeID: self.currentPlaceID!)
-		}
-		
 	}
 	
 	func loadPhotosForPlace(placeID: String) {
@@ -75,30 +82,27 @@ class PhotosViewController: UICollectionViewController {
 				print("Error: \(error.localizedDescription)")
 			} else if let photo = photo {
 				self.imageArray.append(photo)
-				//...
+				//it's not the best place to reload
+				self.collectionView?.reloadData()
 			}
 		})
-	}
-	
-	override func didReceiveMemoryWarning() {
-		super.didReceiveMemoryWarning()
-		// Dispose of any resources that can be recreated.
 	}
 	
 	// MARK: - UICollectionViewDataSource protocol
 	
 	override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+		
+		print("self.imageArray.count is \(self.imageArray.count)")
 		return self.imageArray.count
 	}
 	
 	override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		
 		// get a reference to our storyboard cell
-		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: photocellindentifer, for: indexPath as IndexPath)
+		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: photocellindentifer, for: indexPath as IndexPath) as! CollectionViewCell
 		
 		// Use the outlet in our custom class to get a reference to the UILabel in the cell
-		cell.imageview = imageArray[indexPath.row]
-		
+		cell.collectionImageView.image = imageArray[indexPath.row]
 		return cell
 	}
 	
@@ -107,6 +111,20 @@ class PhotosViewController: UICollectionViewController {
 	override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		// handle tap events
 		print("You selected cell #\(indexPath.item)!")
+		self.performSegue(withIdentifier: "showImage", sender: self)
+	}
+	
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		if segue.identifier == "showImage" {
+			let indexPaths = self.PhotosView.indexPathsForSelectedItems!
+			let indexPath = indexPaths[0] as NSIndexPath
+			
+			let vc = segue.destination as! ClickViewController
+			
+			vc.image = self.imageArray[indexPath.row]
+			vc.labelText = self.addressText
+			vc.navTitle = self.placeName
+		}
 	}
 	
 }

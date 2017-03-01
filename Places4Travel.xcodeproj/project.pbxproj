@@ -16,7 +16,7 @@
 		E00C12711E65200B004794B0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E00C126F1E65200B004794B0 /* LaunchScreen.storyboard */; };
 		E00C12791E65D45F004794B0 /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = E00C12781E65D45F004794B0 /* placeholder.png */; };
 		E00C127C1E65D657004794B0 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E00C127A1E65D657004794B0 /* CollectionViewCell.swift */; };
-		E00C127D1E65D657004794B0 /* CollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E00C127B1E65D657004794B0 /* CollectionViewCell.xib */; };
+		E00C127F1E66434F004794B0 /* ClickViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E00C127E1E66434F004794B0 /* ClickViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,7 +33,7 @@
 		E00C12721E65200B004794B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E00C12781E65D45F004794B0 /* placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholder.png; sourceTree = "<group>"; };
 		E00C127A1E65D657004794B0 /* CollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
-		E00C127B1E65D657004794B0 /* CollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CollectionViewCell.xib; sourceTree = "<group>"; };
+		E00C127E1E66434F004794B0 /* ClickViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClickViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +87,7 @@
 		E00C12631E65200B004794B0 /* Places4Travel */ = {
 			isa = PBXGroup;
 			children = (
+				E00C127E1E66434F004794B0 /* ClickViewController.swift */,
 				E00C12641E65200B004794B0 /* AppDelegate.swift */,
 				E00C12661E65200B004794B0 /* PhotosViewController.swift */,
 				E00C12681E65200B004794B0 /* SettingsViewController.swift */,
@@ -95,7 +96,6 @@
 				E00C126F1E65200B004794B0 /* LaunchScreen.storyboard */,
 				E00C12721E65200B004794B0 /* Info.plist */,
 				E00C127A1E65D657004794B0 /* CollectionViewCell.swift */,
-				E00C127B1E65D657004794B0 /* CollectionViewCell.xib */,
 			);
 			path = Places4Travel;
 			sourceTree = "<group>";
@@ -167,7 +167,6 @@
 				E00C12791E65D45F004794B0 /* placeholder.png in Resources */,
 				E00C126E1E65200B004794B0 /* Assets.xcassets in Resources */,
 				E00C126C1E65200B004794B0 /* Main.storyboard in Resources */,
-				E00C127D1E65D657004794B0 /* CollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -227,6 +226,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E00C12691E65200B004794B0 /* SettingsViewController.swift in Sources */,
+				E00C127F1E66434F004794B0 /* ClickViewController.swift in Sources */,
 				E00C12651E65200B004794B0 /* AppDelegate.swift in Sources */,
 				E00C127C1E65D657004794B0 /* CollectionViewCell.swift in Sources */,
 				E00C12671E65200B004794B0 /* PhotosViewController.swift in Sources */,
