@@ -9,10 +9,11 @@
 import UIKit
 
 class ClickViewController: UIViewController {
-
-	@IBOutlet weak var navBar: UINavigationItem!
+	
+	
 	@IBOutlet weak var imageView: UIImageView!
 	@IBOutlet weak var label: UILabel!
+	@IBOutlet weak var navBar: UINavigationItem!
 	
 	var image = UIImage()
 	var labelText = String()
@@ -24,7 +25,7 @@ class ClickViewController: UIViewController {
 		self.imageView.image = self.image
 		self.label.text = self.labelText
 		self.navBar.title = self.navTitle
-		self.navBar.hidesBackButton = false
+
     }
 
     override func didReceiveMemoryWarning() {
